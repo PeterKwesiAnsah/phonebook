@@ -1,0 +1,25 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["referentialIntegrity"]
+}
+
+datasource db {
+  provider             = "mysql"
+  url                  = env("DATABASE_URL")
+  referentialIntegrity = "prisma"
+}
+
+model Subscriber {
+  id                 Int          @id @default(autoincrement())
+  msisdn             String       @unique
+  service_type       service_type @default(MOBILE_PREPAID)
+  service_start_date DateTime     @default(now())
+}
+
+enum service_type {
+  MOBILE_PREPAID
+  MOBILE_POSTPAID
+}
