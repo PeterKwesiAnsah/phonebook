@@ -7,14 +7,6 @@ import { URL, URLSearchParams } from "url";
 import { genPrevNext } from "../../../utils";
 import { prisma } from "../../../lib/prisma";
 
-// type Data = {
-//   owner: {
-//name:{
-// contains:string
-//}
-// };
-
-// const prisma = new PrismaClient();
 const querySchema = z.object({
   page: z.string().optional(),
   page_size: z.string().optional(),
@@ -36,7 +28,6 @@ export default async function handler(
   const method = req.method;
   if (method === "GET") {
     const query = req.query;
-    // console.log(query.search);
     try {
       //TODO: extract this to a paginate function
       let { page, page_size, service_type, search, sort } =
@@ -118,6 +109,4 @@ export default async function handler(
   }
   res.setHeader("Allow", ["GET", "POST"]);
   res.status(405).end(`Method ${method} Not Allowed`);
-  // return res.status(405).json({ message: "METHOD NOT ALLOWED" });
-  //res.status(200).json({ name: "John Doe" });
 }
