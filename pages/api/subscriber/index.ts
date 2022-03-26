@@ -39,10 +39,8 @@ export default async function handler(
     // console.log(query.search);
     try {
       //TODO: extract this to a paginate function
-      //TODO: search by customer name..sort by customer name
       let { page, page_size, service_type, search, sort } =
         querySchema.parse(query);
-      console.log(sort);
       const queryPage = Number(page || "1") - 1;
       const take = Number(page_size || "20");
       const skip = queryPage * take;
@@ -118,6 +116,8 @@ export default async function handler(
       //console.log(e);
     }
   }
-  return res.status(400).json({ message: "METHOD NOT ALLOWED" });
+  res.setHeader("Allow", ["GET", "POST"]);
+  res.status(405).end(`Method ${method} Not Allowed`);
+  // return res.status(405).json({ message: "METHOD NOT ALLOWED" });
   //res.status(200).json({ name: "John Doe" });
 }

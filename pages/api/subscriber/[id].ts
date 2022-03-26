@@ -18,13 +18,16 @@ export default async function handler(
   res: NextApiResponse<any>
 ) {
   const { id } = req.query;
+  const { method } = req;
   const prismaSubWhere = {
     where: {
       id: Number(id),
     },
+    include: {
+      owner: true,
+    },
   };
-  // console.log(id);
-  if (req.method === "GET") {
+  if (method === "GET") {
     try {
       const subscriber = await prisma.subscriber.findUnique(prismaSubWhere);
       if (subscriber === null) {
@@ -35,7 +38,7 @@ export default async function handler(
       return res.status(400).json({ error });
     }
   }
-  if (req.method === "DELETE") {
+  if (method === "DELETE") {
     try {
       const deletedSubscriber = await prisma.subscriber.delete(prismaSubWhere);
       return res.status(200).json(deletedSubscriber);
@@ -56,6 +59,7 @@ export default async function handler(
       //console.log(e);
     }
   }
-  return res.status(400).json({ message: "METHOD NOT ALLOWED" });
+  res.setHeader("Allow", ["GET", "DELETE", "PATCH"]);
+  res.status(405).end(`Method ${method} Not Allowed`);
   //METHOD NOT ALLOWED
 }
