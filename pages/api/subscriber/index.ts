@@ -1,28 +1,34 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
-import { Prisma, PrismaClient, Subscriber } from "@prisma/client";
+import { Subscriber } from "@prisma/client";
 import { z } from "zod";
 import { PagingResults } from "../../../types";
 import { URL, URLSearchParams } from "url";
 import { genPrevNext } from "../../../utils";
+import { prisma } from "../../../lib/prisma";
 
 // type Data = {
 //   name: string;
 // };
 
-const prisma = new PrismaClient();
+// const prisma = new PrismaClient();
 const querySchema = z.object({
   page: z.string().optional(),
   page_size: z.string().optional(),
   service_type: z.enum(["MOBILE_PREPAID", "MOBILE_POSTPAID"]).optional(),
 });
-const postReqBody = z.object({
-  msisdn : z.string().regex(/^\+?[1-9]\d{1,14}$/),
+export const postReqBody = z.object({
+  msisdn: z.string().regex(/^\+?[1-9]\d{1,14}$/),
   service_type: z.enum(["MOBILE_PREPAID", "MOBILE_POSTPAID"]).optional(),
 });
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Subscriber | PagingResults<Subscriber>>
+  res: NextApiResponse<
+    | Subscriber
+    | PagingResults<Subscriber>
+    | { message: string }
+    | { error: unknown }
+  >
 ) {
   const method = req.method;
   if (method === "GET") {
@@ -55,31 +61,28 @@ export default async function handler(
       const url = new URL("http://" + req.headers!.host + req.url!);
       const isNext = Number(page || "1") * take < count;
       const isPrev = queryPage * take > 0;
-      res.status(200).json({
+      return res.status(200).json({
         count,
         results: subscribers,
         next: genPrevNext(queryPage, url, isNext, "next"),
         prev: genPrevNext(queryPage, url, isPrev, "prev"),
       });
-
-      //console.log(count);
-    } catch (e) {
-      console.log(e);
+    } catch (error) {
+      return res.status(400).json({ error });
     }
   }
   if (method === "POST") {
-    //Validate Reqest body
-    // const body = req;
     try {
       const body = postReqBody.parse(req.body);
-
       const newSubscriber = await prisma.subscriber.create({
-        data: { ...body, service_start_date: String(Date.now()) },
+        data: body,
       });
       return res.status(201).json(newSubscriber);
-    } catch (e) {
-      console.log(e);
+    } catch (error) {
+      return res.status(400).json({ error });
+      //console.log(e);
     }
   }
+  return res.status(400).json({ message: "METHOD NOT ALLOWED" });
   //res.status(200).json({ name: "John Doe" });
 }
