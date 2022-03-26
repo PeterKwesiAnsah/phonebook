@@ -12,11 +12,19 @@ datasource db {
   referentialIntegrity = "prisma"
 }
 
+model Owner {
+  id         Int         @id @default(autoincrement())
+  name       String
+  subscriber Subscriber?
+}
+
 model Subscriber {
   id                 Int          @id @default(autoincrement())
   msisdn             String       @unique
   service_type       service_type @default(MOBILE_PREPAID)
   service_start_date DateTime     @default(now())
+  owner              Owner?       @relation(fields: [customer_id_owner], references: [id])
+  customer_id_owner  Int
 }
 
 enum service_type {
