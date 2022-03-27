@@ -20,6 +20,9 @@ import { useDispatch } from "react-redux";
 import { parsePhoneNumber, isValidPhoneNumber } from "react-phone-number-input";
 export const CreateSub = () => {
   const theme = useTheme();
+  //@ts-ignore
+  const { color, fontWeight, fontFamily, maxWidth } =
+    theme.components?.MuiFilledInput?.styleOverrides?.root;
   const createSubMutation = useCreateSub();
   const sub = useGetSub();
   const [value, setValue] = React.useState<string | undefined>(sub.msisdn);
@@ -81,7 +84,6 @@ export const CreateSub = () => {
               //@ts-ignore
               ...theme.components?.MuiFilledInput?.styleOverrides?.root,
               //@ts-ignore
-              height: inputStyles().height,
               ...inputStyles(),
               padding: "12px !important",
               "&:focus-within":
@@ -98,22 +100,10 @@ export const CreateSub = () => {
                 height: "100%",
                 maxHeight: inputStyles().height,
                 border: "transparent",
-                fontWeight:
-                  //@ts-ignore
-                  theme.components?.MuiFilledInput?.styleOverrides?.root[
-                    "fontWeight"
-                  ],
-                color:
-                  //@ts-ignore
-                  theme.components?.MuiFilledInput?.styleOverrides?.root[
-                    "color"
-                  ],
+                fontWeight,
+                color,
+                fontFamily,
 
-                fontFamily:
-                  //@ts-ignore
-                  theme.components?.MuiFilledInput?.styleOverrides?.root[
-                    "fontFamily"
-                  ],
                 "&:focus-visible": {
                   outlineColor: "transparent",
                 },
@@ -160,19 +150,29 @@ export const CreateSub = () => {
           </TextField>
         </Grid>
       </Grid>
-      <Button
-        type="submit"
-        variant="contained"
+      <Box
         sx={{
-          mt: 1,
-          ml: "auto",
-          display: "block",
-          cursor: createSubMutation.isLoading ? "not-allowed" : "pointer",
-          opacity: createSubMutation.isLoading ? 0.7 : 1,
+          maxWidth,
         }}
       >
-        {createSubMutation.isLoading ? "Hang on" : sub.id ? "Update" : "Create"}
-      </Button>
+        <Button
+          type="submit"
+          variant="contained"
+          sx={{
+            mt: 1,
+            ml: "auto",
+            display: "block",
+            cursor: createSubMutation.isLoading ? "not-allowed" : "pointer",
+            opacity: createSubMutation.isLoading ? 0.7 : 1,
+          }}
+        >
+          {createSubMutation.isLoading
+            ? "Hang on"
+            : sub.id
+            ? "Update"
+            : "Create"}
+        </Button>
+      </Box>
     </Box>
   );
 };
