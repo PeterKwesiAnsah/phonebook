@@ -7,37 +7,48 @@ import {
   MenuItem,
   TextField,
   Button,
+  useTheme,
 } from "@mui/material";
 import { services } from ".";
 import { inputStyles } from "../../../utils";
 import { useCreateSub } from "../hooks";
-import { useDispatch } from "react-redux";
 import { close } from "../subscriberSlice";
+import "react-phone-number-input/style.css";
+import PhoneInput from "react-phone-number-input";
+import { useDispatch } from "react-redux";
+//import { useTheme } from "@emotion/react";
 
-const defaultMsidn = "+233507140670";
+// const defaultMsidn = "+233507140665";
 export const CreateSub = () => {
+  const theme = useTheme();
+  const [value, setValue] = React.useState<E164Number | undefined>();
   const createSubMutation = useCreateSub();
+  // console.log(value);
   const dispatch = useDispatch();
-  const createSubHander: React.FormEventHandler<HTMLFormElement> = (e) => {
-    e.preventDefault();
-    //@ts-ignore
-    const name = e.target.name.value;
-    //@ts-ignore
-    const service_type = e.target.service_type.value;
-    createSubMutation.mutate(
-      {
-        name,
-        msisdn: defaultMsidn,
-        service_type,
+  const createSubHander: React.FormEventHandler<HTMLFormElement> =
+    React.useCallback(
+      (e) => {
+        e.preventDefault();
+        //@ts-ignore
+        const name = e.target.name.value;
+        //@ts-ignore
+        const service_type = e.target.service_type.value;
+        !createSubMutation.isLoading &&
+          createSubMutation.mutate(
+            {
+              name,
+              msisdn: value,
+              service_type,
+            },
+            {
+              onSuccess: () => {
+                dispatch(close());
+              },
+            }
+          );
       },
-      {
-        onSuccess: () => {
-          dispatch(close());
-        },
-      }
+      [value]
     );
-    //console.log(name, service_type);
-  };
   return (
     <Box component="form" onSubmit={createSubHander}>
       <Grid container spacing={2}>
@@ -52,6 +63,38 @@ export const CreateSub = () => {
             aria-required
             sx={inputStyles()}
           ></FilledInput>
+        </Grid>
+        <Grid
+          item
+          xs={12}
+          sx={{
+            "& .PhoneInput": {
+              maxWidth:
+                //@ts-ignore
+                theme.components?.MuiFilledInput?.styleOverrides?.root.maxWidth,
+              height: inputStyles().height,
+
+              "& .PhoneInputInput": {
+                ...inputStyles(),
+                //@ts-ignore
+                ...theme.components?.MuiFilledInput?.styleOverrides?.root,
+                padding: "12px !important",
+                "&:focus-visible": {
+                  outlineColor: theme.palette.primary.main,
+                },
+              },
+            },
+          }}
+        >
+          <InputLabel>Phone</InputLabel>
+          <PhoneInput
+            name="msisdn"
+            required
+            defaultCountry="GH"
+            value={value}
+            placeholder="Enter Phone"
+            onChange={setValue}
+          ></PhoneInput>
         </Grid>
         <Grid item xs={12}>
           <InputLabel>Select Service Type</InputLabel>
