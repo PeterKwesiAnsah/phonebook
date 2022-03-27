@@ -1,6 +1,7 @@
 import { fetchAsync } from "../../../lib/axios";
 
 export type subPayload = {
+  id?: number;
   name: string;
   msisdn: string;
   service_type: "MOBILE_POSTPAID" | "MOBILE_PREPAID";
@@ -8,8 +9,8 @@ export type subPayload = {
 
 export const createSub = (payload: subPayload) => {
   return fetchAsync({
-    path: "/subscriber",
-    method: "POST",
+    path: !!payload.id ? "/subscriber/" + payload.id : "/subscriber/",
+    method: !!payload.id ? "PATCH" : "POST",
     data: payload,
   });
 };

@@ -53,6 +53,7 @@ export default async function handler(
         ...prismaSubWhere,
         data: body,
       });
+      // console.log(body);
       return res.status(200).json(updatedSubscriber);
     } catch (error) {
       return res.status(400).json({ error });

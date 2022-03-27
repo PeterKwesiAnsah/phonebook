@@ -11,19 +11,24 @@ import {
 } from "@mui/material";
 import { services } from ".";
 import { inputStyles } from "../../../utils";
-import { useCreateSub } from "../hooks";
+import { useCreateSub, useGetSub } from "../hooks";
 import { close } from "../subscriberSlice";
 import "react-phone-number-input/style.css";
 import PhoneInput from "react-phone-number-input";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { parsePhoneNumber, isValidPhoneNumber } from "react-phone-number-input";
+
+import { RootState } from "../../../store";
 //import { useTheme } from "@emotion/react";
 
 // const defaultMsidn = "+233507140665";
 export const CreateSub = () => {
   const theme = useTheme();
-  const [value, setValue] = React.useState<E164Number | undefined>();
   const createSubMutation = useCreateSub();
-  // console.log(value);
+  const sub = useGetSub();
+  const [value, setValue] = React.useState<E164Number | undefined>(sub.msisdn);
+  // const subState = useSelector((state: RootState) => state.subscriber);
+  //  console.log(value);
   const dispatch = useDispatch();
   const createSubHander: React.FormEventHandler<HTMLFormElement> =
     React.useCallback(
@@ -33,9 +38,11 @@ export const CreateSub = () => {
         const name = e.target.name.value;
         //@ts-ignore
         const service_type = e.target.service_type.value;
-        !createSubMutation.isLoading &&
+        isValidPhoneNumber(value) &&
+          !createSubMutation.isLoading &&
           createSubMutation.mutate(
             {
+              id: sub?.id,
               name,
               msisdn: value,
               service_type,
@@ -47,7 +54,7 @@ export const CreateSub = () => {
             }
           );
       },
-      [value]
+      [value, sub]
     );
   return (
     <Box component="form" onSubmit={createSubHander}>
@@ -59,7 +66,9 @@ export const CreateSub = () => {
             name="name"
             placeholder="Enter Full Name"
             type="text"
+            readOnly={!!sub?.id}
             required
+            defaultValue={sub.owner.name}
             aria-required
             sx={inputStyles()}
           ></FilledInput>
@@ -90,10 +99,14 @@ export const CreateSub = () => {
           <PhoneInput
             name="msisdn"
             required
-            defaultCountry="GH"
+            defaultCountry={
+              sub?.id ? parsePhoneNumber(sub.msisdn)?.country : "GH"
+            }
             value={value}
             placeholder="Enter Phone"
             onChange={setValue}
+            international
+            withCountryCallingCode
           ></PhoneInput>
         </Grid>
         <Grid item xs={12}>
@@ -104,7 +117,7 @@ export const CreateSub = () => {
             variant="filled"
             name="service_type"
             required
-            defaultValue={"MOBILE_PREPAID"}
+            defaultValue={sub.service_type}
           >
             {services
               .filter((service) => service.name !== "All")

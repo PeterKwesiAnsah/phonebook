@@ -24,7 +24,7 @@ export type Owner = {
 export type Subscriber = {
   id: number;
   msisdn: string;
-  service_type: string;
+  service_type: "MOBILE_PREPAID" | "MOBILE_POSTPAID";
   service_start_date: string;
   owner: Owner;
   customer_id_owner: number;
