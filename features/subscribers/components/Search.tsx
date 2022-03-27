@@ -45,7 +45,7 @@ export const Search = () => {
     <FilledInput
       id="search"
       name="search"
-      placeholder="Search"
+      placeholder="Search a Name"
       type="text"
       startAdornment={
         <InputAdornment position="start">
@@ -69,4 +69,3 @@ export const Search = () => {
     ></FilledInput>
   );
 };
-

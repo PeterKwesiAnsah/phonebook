@@ -1,34 +1,115 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Phone Book
+
+A fullstack application maintaining a database of mobile numbers that are
+assigned to clients, along with some related information.
+
+## Introduction
+
+Next.js is a fullstack React framework, it allows you to build your frontend using React and easily set up an API. The framework also supports different data fetching strategies: you can fetch data at build time, client-side or server-side.
+
+Prisma is a next-generation ORM for Node.js and TypeScript. It makes working with databases easy by providing you with simple workflows.
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
-npm run dev
-# or
-yarn dev
+git clone -b starter https://github.com/PeterKwesiAnsah/phonebook.git
+cd phonebook
+yarn install
+yarn run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+This will clone the branch, install the dependencies and start the development server.
+The app will be running at [http://localhost:3000](http://localhost:3000).
+API Routes can be found at [http://localhost:3000/api/](http://localhost:3000/api/).
+Example a GET Request to [http://localhost:3000/api/subscriber](http://localhost:3000/api/subscriber) gives you a list of subscribers
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+## Project structure
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+The starter project includes the following dependencies installed:
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+- [TypeScript](https://typescriptlang.org/): type-safe JavaScript
+- [react-hot-toast](https://react-hot-toast.com/): library for displaying toast notifications
+- [MUI](https://mui.com/): customizable, and accessible library of foundational and advanced components
+- [React-Query](https://react-query.tanstack.com/): react hooks for remote data fetching
+- [Zod](https://github.com/colinhacks/zod):TypeScript-first schema validation with static type inference
+- [ReduxToolkit](https://redux-toolkit.js.org/):The official, opinionated, batteries-included toolset for efficient Redux development
+- [Prisma](https://www.prisma.io/):Next-generation Node.js and TypeScript ORM
+  You'll find the following project structure
 
-## Learn More
+```phonebook/
 
-To learn more about Next.js, take a look at the following resources:
+┣ pages/
+┃ ┣ api/
+┃ ┃ ┗ [id].ts
+┃ ┣ _app.tsx
+┃ ┣ index.tsx
+┃ ┗ view.tsx
+┣ public/
+┣ styles/
+┣ .eslintrc.json
+┣ .gitignore
+┣ README.md
+┣ next-env.d.ts
+┣ next.config.js
+┣ package-lock.json
+┣ package.json
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- `pages`: Next.js has file-system based routing, where each file in this directory is autimatically a route.
+  - `index.tsx` renders the page located at `http:///localhost:3000`, which contains the overview of the application
+  - `_app`: global `App` component that wraps around your entire app. This file is used to add global styles , redux etc
+  - `page/index.tsx`: page that will display an overview of subscribers
+  - `public`: folder for serving static assets such as images, fonts, etc.
+  - `store`: folder contains the redux store
+  - `types`: folter contains type utilities for the app
 
-## Deploy on Vercel
+## Setting up the datebase URL
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Create a .env file and add your database URL as illustrated in .env.example located in the root directory.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+This will clone the branch, install the dependencies and start the development server.
+The app will be running at [http://localhost:3000](http://localhost:3000).
+
+## Setting up the database layer using Prisma
+
+```
+npm install prisma -D
+```
+
+### Initialize Prisma in your project
+
+```
+npx prisma init
+```
+
+### Creating a migration
+
+```bash
+npx prisma db push
+
+```
+
+### Using Prisma Studio to explore the database
+
+```bash
+npx prisma studio
+```
+
+### Setting up Prisma Client
+
+```
+npm install @prisma/client
+```
+
+```ts
+import { PrismaClient } from "@prisma/client";
+
+declare global {
+  var prisma: PrismaClient | undefined;
+}
+
+export const prisma = global.prisma || new PrismaClient();
+
+if (process.env.NODE_ENV !== "production") global.prisma = prisma;
+```
