@@ -14,7 +14,7 @@ import { inputStyles } from "../../../utils";
 import { useCreateSub, useGetSub } from "../hooks";
 import { close } from "../subscriberSlice";
 import "react-phone-number-input/style.css";
-import PhoneInput from "react-phone-number-input";
+import PhoneInput, { Value } from "react-phone-number-input";
 import { useDispatch, useSelector } from "react-redux";
 import { parsePhoneNumber, isValidPhoneNumber } from "react-phone-number-input";
 
@@ -26,7 +26,7 @@ export const CreateSub = () => {
   const theme = useTheme();
   const createSubMutation = useCreateSub();
   const sub = useGetSub();
-  const [value, setValue] = React.useState<E164Number | undefined>(sub.msisdn);
+  const [value, setValue] = React.useState<string | undefined>(sub.msisdn);
   const isValidPhone = React.useMemo(
     () => isValidPhoneNumber(value || ""),
     [value]
@@ -42,14 +42,15 @@ export const CreateSub = () => {
         const name = e.target.name.value;
         //@ts-ignore
         const service_type = e.target.service_type.value;
-        isValidPhone &&
+        value &&
+          isValidPhone &&
           isValidPhoneNumber(value) &&
           !createSubMutation.isLoading &&
           createSubMutation.mutate(
             {
               id: sub?.id,
               name,
-              msisdn: value,
+              msisdn: value!,
               service_type,
             },
             {
@@ -107,7 +108,7 @@ export const CreateSub = () => {
             defaultCountry={
               sub?.id ? parsePhoneNumber(sub.msisdn)?.country : "GH"
             }
-            value={value}
+            value={value as Value}
             placeholder="Enter Phone"
             onChange={setValue}
             international
