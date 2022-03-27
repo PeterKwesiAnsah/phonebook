@@ -8,6 +8,7 @@ import {
   TextField,
   Button,
   useTheme,
+  Typography,
 } from "@mui/material";
 import { services } from ".";
 import { inputStyles } from "../../../utils";
@@ -15,13 +16,8 @@ import { useCreateSub, useGetSub } from "../hooks";
 import { close } from "../subscriberSlice";
 import "react-phone-number-input/style.css";
 import PhoneInput, { Value } from "react-phone-number-input";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { parsePhoneNumber, isValidPhoneNumber } from "react-phone-number-input";
-
-import { RootState } from "../../../store";
-//import { useTheme } from "@emotion/react";
-
-// const defaultMsidn = "+233507140665";
 export const CreateSub = () => {
   const theme = useTheme();
   const createSubMutation = useCreateSub();
@@ -89,16 +85,24 @@ export const CreateSub = () => {
               ...inputStyles(),
               padding: "12px !important",
               "&:focus-within":
-                //@ts-ignore
-                theme.components?.MuiFilledInput?.styleOverrides?.root[
-                  "&.Mui-focused"
-                ],
+                value && value.length > 0 && !isValidPhone
+                  ? {
+                      border: "2px solid " + theme.palette.error.main,
+                    }
+                  : //@ts-ignore
+                    theme.components?.MuiFilledInput?.styleOverrides?.root[
+                      "&.Mui-focused"
+                    ],
 
               "& .PhoneInputInput": {
                 height: "100%",
                 maxHeight: inputStyles().height,
                 border: "transparent",
-
+                fontWeight:
+                  //@ts-ignore
+                  theme.components?.MuiFilledInput?.styleOverrides?.root[
+                    "fontWeight"
+                  ],
                 color:
                   //@ts-ignore
                   theme.components?.MuiFilledInput?.styleOverrides?.root[
@@ -117,7 +121,7 @@ export const CreateSub = () => {
             },
           }}
         >
-          <InputLabel>Phone</InputLabel>
+          <InputLabel htmlFor="msisdn">Phone</InputLabel>
           <PhoneInput
             name="msisdn"
             required
@@ -130,6 +134,11 @@ export const CreateSub = () => {
             international
             withCountryCallingCode
           ></PhoneInput>
+          {value && value.length > 0 && !isValidPhone && (
+            <Typography variant="subtitle2" color="error">
+              Phone Invalid
+            </Typography>
+          )}
         </Grid>
         <Grid item xs={12}>
           <InputLabel>Select Service Type</InputLabel>
