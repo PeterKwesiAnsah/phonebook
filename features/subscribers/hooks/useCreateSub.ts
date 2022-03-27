@@ -3,6 +3,7 @@ import { MutationConfig } from "../../../types";
 import { createSub } from "../api";
 import { useMutation } from "react-query";
 import { client } from "../../../lib/reactQuery";
+import toast from "react-hot-toast";
 
 export const useCreateSub = (config?: MutationConfig<typeof createSub>) => {
   //   const dispatch = useDispatch();
@@ -10,9 +11,11 @@ export const useCreateSub = (config?: MutationConfig<typeof createSub>) => {
   const createSubMutation = useMutation({
     mutationKey: "create_sub",
     mutationFn: createSub,
-    onSuccess: () => {
-      //   console.log("far");
-      //dispatch(close());
+    onSuccess: (data, variables) => {
+      const action = variables?.id ? "Updated" : "Created";
+      toast.success(`Subscriber ${action} successfully`, {
+        position: "bottom-left",
+      });
       client.invalidateQueries({
         queryKey: [
           "Table",

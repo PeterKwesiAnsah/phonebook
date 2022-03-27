@@ -138,9 +138,9 @@ theme = createTheme(theme, {
         },
         columnHeaders: {
           background: "#F6F9FC",
-          minHeight: "39px  !important",
-          maxHeight: "39px !important",
-          height: "39px",
+          // minHeight: "39px  !important",
+          // maxHeight: "39px !important",
+          // height: "39px",
         },
 
         cell: {
@@ -255,8 +255,7 @@ theme = createTheme(theme, {
             backgroundColor: theme.palette.background.paper,
           },
           "&.Mui-focused": {
-            boxShadow: "0px 0px 1px 2px rgba(30, 154, 45, 0.3)",
-            border: "1px solid #1e9a2d",
+            border: "2px solid " + theme.palette.primary.main,
             backgroundColor: theme.palette.background.paper,
           },
         },

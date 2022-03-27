@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../store";
 import { useDelSub } from "../hooks";
 import { close } from "../subscriberSlice";
+import toast from "react-hot-toast";
 
 export const DeleteSub = () => {
   const dispatch = useDispatch();
@@ -14,7 +15,11 @@ export const DeleteSub = () => {
     !delMutation.isLoading &&
       delMutation.mutate(subId, {
         onSuccess: () => {
+          const action = "Deleted";
           dispatch(close());
+          toast.success(`Subscriber ${action} Successfully`, {
+            position: "bottom-left",
+          });
         },
       });
   };

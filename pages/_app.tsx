@@ -7,6 +7,7 @@ import { ReactQueryDevtools } from "react-query/devtools";
 import { Container } from "../Layout";
 import { Provider } from "react-redux";
 import { store } from "../store";
+import { Toaster } from "react-hot-toast";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -15,6 +16,8 @@ function MyApp({ Component, pageProps }: AppProps) {
         <Container>
           <Provider store={store}>
             <Component {...pageProps} />
+
+            <Toaster></Toaster>
           </Provider>
         </Container>
       </Theme>
