@@ -29,16 +29,17 @@ declare module "@mui/material/styles/createPalette" {
 let theme = createTheme({
   palette: {
     primary: {
-      main: "#135B1C",
-      light: "#1E9A2D",
+      main: "#F89722",
+      light: "#E1A136",
+      contrastText: "#FFFFFF",
     },
     secondary: {
-      main: "#1C345D",
-      light: "#525F7F",
+      main: "#142B51",
+      light: "#1D3865",
       dark: "#333333",
     },
     tertiary: {
-      main: "#8898AA",
+      main: "#8F98AA",
       light: "#D0D4D8",
     },
     error: {
@@ -55,12 +56,6 @@ let theme = createTheme({
     border: {
       main: "#E9ECEF",
       light: "#D8D8D8",
-    },
-    status: {
-      pending: "#5E72E4",
-      complete: "#1E9A2D",
-      successful: "#1E9A2D",
-      cancelled: "#F80031",
     },
   },
 });
@@ -221,8 +216,8 @@ theme = createTheme(theme, {
           padding: "10px 40px",
           fontFamily: "sans-serif",
           fontSize: "14px",
-          fontWeight: 600,
-          borderRadius: "6px",
+          //fontWeight: 600,
+          borderRadius: 0,
         },
       },
     },

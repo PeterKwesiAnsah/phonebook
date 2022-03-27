@@ -35,7 +35,7 @@ export const DataTable = () => {
             }}
             page={Number(page) - 1}
             onPageChange={(pageNumber: number) => {
-              console.log(pageNumber);
+              // console.log(pageNumber);
               //query["page"] = ;
               const pageCount = "" + Number(pageNumber + 1);
               console.log(pageCount);
@@ -46,10 +46,7 @@ export const DataTable = () => {
                   page: pageCount,
                 },
               });
-              // const params = new URLSearchParams(search);
-              // params.set("page", String(pageNumber + 1));
-              // const newQuery = `?${params.toString()}`;
-              // navigate(pathname + newQuery);
+  
             }}
             pageSize={Number(page_size)}
             autoHeight

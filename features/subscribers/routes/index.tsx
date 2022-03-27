@@ -63,6 +63,34 @@ export const Subscribers = () => {
       field: "service_type",
       headerName: "Service Type",
       flex: 0.2,
+      renderCell: (params: { value: "MOBILE_PREPAID" | "MOBILE_POSTPAID" }) => {
+        const services: {
+          [K in typeof params["value"]]: {
+            name: string;
+            color: string;
+          };
+        } = {
+          MOBILE_POSTPAID: {
+            name: "PostPaid",
+            color: "primary.main",
+          },
+          MOBILE_PREPAID: {
+            name: "PrePaid",
+            color: "tertiary.main",
+          },
+        };
+        return (
+          <Typography
+            variant="subtitle2"
+            sx={{
+              //fontWeight: 600,
+              color: services[params.value].color,
+            }}
+          >
+            {services[params.value].name}
+          </Typography>
+        );
+      },
     },
     {
       field: "action",
@@ -70,7 +98,10 @@ export const Subscribers = () => {
       flex: 0.1,
       renderCell: (params: { value: number }) => (
         <Stack direction="row" spacing={0.5}>
+          
           <IconButton
+          //@ts-ignore
+            color="tertiary"
             onClick={() => {
               dispatch(
                 update({
@@ -82,6 +113,7 @@ export const Subscribers = () => {
             <ModeEditIcon></ModeEditIcon>
           </IconButton>
           <IconButton
+            color="error"
             onClick={() => {
               dispatch(
                 deleteSub({

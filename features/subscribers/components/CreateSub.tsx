@@ -31,8 +31,6 @@ export const CreateSub = () => {
     () => isValidPhoneNumber(value || ""),
     [value]
   );
-  // const subState = useSelector((state: RootState) => state.subscriber);
-  //  console.log(value);
   const dispatch = useDispatch();
   const createSubHander: React.FormEventHandler<HTMLFormElement> =
     React.useCallback(

@@ -19,6 +19,7 @@ export const ListLayout = ({
     <Box>
       <Stack alignItems={"end"}>
         <IconButton
+          color="secondary"
           onClick={() => {
             dispatch(create());
           }}
