@@ -6,3 +6,4 @@ export * from "./ListLayout";
 export * from "./Search";
 export * from "./Actions";
 export * from "./CreateSub";
+export * from "./DeleteSub";

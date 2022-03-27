@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../store";
 import { close } from "../subscriberSlice";
 import { borderStyles } from "../../overview/components";
-import { CreateSub } from ".";
+import { CreateSub, DeleteSub } from ".";
 import { ActionLayout } from "../Layout";
 
 export const Actions = () => {
@@ -18,7 +18,11 @@ export const Actions = () => {
       }}
     >
       <ActionLayout>
-        <CreateSub></CreateSub>
+        {state.method === "DELETE" ? (
+          <DeleteSub></DeleteSub>
+        ) : (
+          <CreateSub></CreateSub>
+        )}
       </ActionLayout>
     </Dialog>
   );

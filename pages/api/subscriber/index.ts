@@ -71,9 +71,10 @@ export default async function handler(
             owner: true,
           },
           orderBy: {
-            owner: {
-              name: sort || "asc",
-            },
+            service_start_date: "desc",
+            // owner: {
+            //   name: sort || "asc",
+            // },
           },
         }),
       ]);

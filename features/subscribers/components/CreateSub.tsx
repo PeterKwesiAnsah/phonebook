@@ -27,6 +27,10 @@ export const CreateSub = () => {
   const createSubMutation = useCreateSub();
   const sub = useGetSub();
   const [value, setValue] = React.useState<E164Number | undefined>(sub.msisdn);
+  const isValidPhone = React.useMemo(
+    () => isValidPhoneNumber(value || ""),
+    [value]
+  );
   // const subState = useSelector((state: RootState) => state.subscriber);
   //  console.log(value);
   const dispatch = useDispatch();
@@ -38,7 +42,8 @@ export const CreateSub = () => {
         const name = e.target.name.value;
         //@ts-ignore
         const service_type = e.target.service_type.value;
-        isValidPhoneNumber(value) &&
+        isValidPhone &&
+          isValidPhoneNumber(value) &&
           !createSubMutation.isLoading &&
           createSubMutation.mutate(
             {
@@ -136,6 +141,7 @@ export const CreateSub = () => {
           mt: 1,
           ml: "auto",
           display: "block",
+          cursor: createSubMutation.isLoading ? "not-allowed" : "initial",
           opacity: createSubMutation.isLoading ? 0.7 : 1,
         }}
       >

@@ -14,7 +14,7 @@ import { DataTableProvider } from "../providers/DataTableProvider";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useDispatch } from "react-redux";
-import { update } from "../subscriberSlice";
+import { update, deleteSub } from "../subscriberSlice";
 export const Subscribers = () => {
   const dispatch = useDispatch();
   const rows = (subs: PagingResults<Subscriber>["results"]) => {
@@ -68,7 +68,15 @@ export const Subscribers = () => {
           >
             <ModeEditIcon></ModeEditIcon>
           </IconButton>
-          <IconButton>
+          <IconButton
+            onClick={() => {
+              dispatch(
+                deleteSub({
+                  id: params.value,
+                })
+              );
+            }}
+          >
             <DeleteIcon></DeleteIcon>
           </IconButton>
         </Stack>

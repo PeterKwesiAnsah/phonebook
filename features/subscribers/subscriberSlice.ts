@@ -22,7 +22,11 @@ export const subscriberSlice = createSlice({
       state.method = "POST";
       state.data = undefined;
     },
-    deleteSub: (state, action: PayloadAction<SubscriberState["data"]>) => {},
+    deleteSub: (state, action: PayloadAction<SubscriberState["data"]>) => {
+      state.open = true;
+      state.method = "DELETE";
+      state.data = action.payload;
+    },
     update: (state, action: PayloadAction<SubscriberState["data"]>) => {
       state.open = true;
       state.method = "PATCH";

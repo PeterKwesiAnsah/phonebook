@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, useTheme } from "@mui/material";
 import React, { ReactChild } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store";
@@ -11,11 +11,15 @@ const methodsDic: { [k in RootState["subscriber"]["method"]]: string } = {
 };
 export const ActionLayout = ({ children }: { children: ReactChild }) => {
   const { method } = useSelector((state: RootState) => state.subscriber);
+  const theme = useTheme();
   return (
     <Box
       sx={{
         ...borderStyles,
         borderColor: "transparent",
+        minWidth:
+          //@ts-ignore
+          theme.components?.MuiFilledInput?.styleOverrides?.root.maxWidth,
       }}
     >
       <Typography variant="h1">{methodsDic[method]}</Typography>
