@@ -19,6 +19,7 @@ export const DataTable = () => {
   const query = router.query;
   const page = query["page"] ?? defaultPage;
   const page_size = query["page_size"] ?? defaultPage_Size;
+  // console.log(page, page_size);
   const rows = genRows(queryResult.data!.results);
 
   return (
@@ -34,10 +35,16 @@ export const DataTable = () => {
             }}
             page={Number(page) - 1}
             onPageChange={(pageNumber: number) => {
-              query["page"] = page + String(pageNumber + 1);
+              console.log(pageNumber);
+              //query["page"] = ;
+              const pageCount = "" + Number(pageNumber + 1);
+              console.log(pageCount);
               router.push({
                 pathname: "/view",
-                query,
+                query: {
+                  ...query,
+                  page: pageCount,
+                },
               });
               // const params = new URLSearchParams(search);
               // params.set("page", String(pageNumber + 1));

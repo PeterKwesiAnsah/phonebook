@@ -45,6 +45,19 @@ export const Subscribers = () => {
       field: "number",
       headerName: "Phone",
       flex: 0.2,
+      renderCell: (params: { value: string }) => {
+        return (
+          <Typography
+            variant="subtitle2"
+            sx={{
+              fontWeight: 700,
+              color: "secondary.main",
+            }}
+          >
+            {params.value}
+          </Typography>
+        );
+      },
     },
     {
       field: "service_type",
