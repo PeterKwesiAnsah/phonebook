@@ -14,7 +14,8 @@ export const genPrevNext = (
     if (type === "prev") {
       searchParam.set("page", String(queryPage));
     }
-    return url.protocol + "//" + url.host + "/?" + searchParam.toString();
+    // console.log();
+    return url.origin + url.pathname + url.search;
     // console.log(searchParam.toString());
   } else {
     return null;
