@@ -78,8 +78,12 @@ export default async function handler(
           },
         }),
       ]);
-      const url = new URL("http://" + req.headers!.host + req.url!);
-      // console.log('url',url);
+      let protocol = "https://";
+      if (req.headers.host!.includes("local")) {
+        protocol = "http://";
+      }
+      const url = new URL(protocol + req.headers!.host + req.url!);
+      // console.log("url", req.headers);
       const isNext = Number(page || "1") * take < count;
       const isPrev = queryPage * take > 0;
       return res.status(200).json({
