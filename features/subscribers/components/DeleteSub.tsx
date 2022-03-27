@@ -54,7 +54,7 @@ export const DeleteSub = () => {
           display: "block",
           bgcolor: "error.main",
           mt: 4,
-          cursor: delMutation.isLoading ? "not-allowed" : "initial",
+          cursor: delMutation.isLoading ? "not-allowed" : "pointer",
 
           opacity: delMutation.isLoading ? 0.7 : 1,
           "&:hover": {

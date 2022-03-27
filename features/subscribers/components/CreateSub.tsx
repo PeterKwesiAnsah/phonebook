@@ -141,7 +141,7 @@ export const CreateSub = () => {
           mt: 1,
           ml: "auto",
           display: "block",
-          cursor: createSubMutation.isLoading ? "not-allowed" : "initial",
+          cursor: createSubMutation.isLoading ? "not-allowed" : "pointer",
           opacity: createSubMutation.isLoading ? 0.7 : 1,
         }}
       >
