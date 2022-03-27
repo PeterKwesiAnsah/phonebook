@@ -19,7 +19,9 @@ yarn run dev
 ```
 
 This will clone the branch, install the dependencies and start the development server.
+
 The app will be running at [http://localhost:3000](http://localhost:3000).
+
 API Routes can be found at [http://localhost:3000/api/](http://localhost:3000/api/).
 Example a GET Request to [http://localhost:3000/api/subscriber](http://localhost:3000/api/subscriber) gives you a list of subscribers
 
@@ -67,9 +69,6 @@ The starter project includes the following dependencies installed:
 ## Setting up the datebase URL
 
 Create a .env file and add your database URL as illustrated in .env.example located in the root directory.
-
-This will clone the branch, install the dependencies and start the development server.
-The app will be running at [http://localhost:3000](http://localhost:3000).
 
 ## Setting up the database layer using Prisma
 
