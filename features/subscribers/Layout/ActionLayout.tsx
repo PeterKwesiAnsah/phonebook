@@ -17,7 +17,7 @@ export const ActionLayout = ({ children }: { children: ReactChild }) => {
       sx={{
         ...borderStyles,
         borderColor: "transparent",
-        minWidth:
+        width:
           //@ts-ignore
           theme.components?.MuiFilledInput?.styleOverrides?.root.maxWidth,
       }}

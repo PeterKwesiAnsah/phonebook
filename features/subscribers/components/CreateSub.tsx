@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import { services } from ".";
 import { inputStyles } from "../../../utils";
-import { useCreateSub, useGetSub } from "../hooks";
+import { useCreateSub, useGetSub, usePhone } from "../hooks";
 import { close } from "../subscriberSlice";
 import "react-phone-number-input/style.css";
 import PhoneInput, { Value } from "react-phone-number-input";
@@ -25,11 +25,7 @@ export const CreateSub = () => {
     theme.components?.MuiFilledInput?.styleOverrides?.root;
   const createSubMutation = useCreateSub();
   const sub = useGetSub();
-  const [value, setValue] = React.useState<string | undefined>(sub.msisdn);
-  const isValidPhone = React.useMemo(
-    () => isValidPhoneNumber(value || ""),
-    [value]
-  );
+  const [value, setValue, isValidPhone] = usePhone(sub.msisdn);
   const dispatch = useDispatch();
   const createSubHander: React.FormEventHandler<HTMLFormElement> =
     React.useCallback(
@@ -159,7 +155,7 @@ export const CreateSub = () => {
           type="submit"
           variant="contained"
           sx={{
-            mt: 1,
+            mt: 2,
             ml: "auto",
             display: "block",
             cursor: createSubMutation.isLoading ? "not-allowed" : "pointer",
