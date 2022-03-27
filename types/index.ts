@@ -1,7 +1,7 @@
 import { AxiosError } from "axios";
 import { UseQueryOptions, UseMutationOptions } from "react-query";
 
-export type PagingResults<T> = {
+export type PagingResults<T = any> = {
   count: number;
   next: string | null;
   prev: string | null;

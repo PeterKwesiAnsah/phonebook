@@ -43,9 +43,7 @@ export const GridWidget = () => {
       spacing={2}
       justifyContent="center"
       alignItems="center"
-      sx={{
-        mt: "10%",
-      }}
+  
     >
       {Widgets.map(({ name, to }, index) => (
         <Link key={index} href={`/view/${to}`}>

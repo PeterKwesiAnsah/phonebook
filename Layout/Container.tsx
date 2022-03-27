@@ -5,12 +5,14 @@ export const Container = ({ children }: { children: ReactChild }) => {
   return (
     <Box
       sx={{
-        minHeight: "100vh",
+        minHeight: "50vh",
+
+        maxWidth: "1024px",
+        margin: "0 auto",
+        mt: "10%",
       }}
     >
       {children}
     </Box>
   );
 };
-
-
