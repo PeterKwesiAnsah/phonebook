@@ -5,13 +5,17 @@ import { QueryClientProvider } from "react-query";
 import { client } from "../lib/reactQuery";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { Container } from "../Layout";
+import { Provider } from "react-redux";
+import { store } from "../store";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={client}>
       <Theme>
         <Container>
-          <Component {...pageProps} />
+          <Provider store={store}>
+            <Component {...pageProps} />
+          </Provider>
         </Container>
       </Theme>
       <ReactQueryDevtools></ReactQueryDevtools>

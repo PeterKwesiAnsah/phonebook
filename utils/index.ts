@@ -23,3 +23,15 @@ export const genPrevNext = (
   //   prevUrl.searchParams.set("page", String(queryPage - 1));
   // }
 };
+
+export const inputStyles = () => ({
+  bgcolor: "background.paper",
+  border: "1px solid #E9ECEF",
+  "& .MuiFilledInput-input": {
+    paddingTop: "0",
+    paddingBottom: "0",
+    height: "100%",
+  },
+  height: "3.375rem",
+  width: "100%",
+});

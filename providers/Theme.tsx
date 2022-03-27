@@ -166,6 +166,35 @@ theme = createTheme(theme, {
         },
       },
     },
+    MuiMenuItem: {
+      styleOverrides: {
+        root: {
+          fontSize: "14px",
+        },
+      },
+    },
+    MuiTextField: {
+      styleOverrides: {
+        root: {
+          marginTop: 0,
+          paddingTop: 0,
+          width: "100%",
+          height: "3.375rem",
+          maxWidth: "21.8125rem",
+          "& .MuiFilledInput-root": {
+            height: "100%",
+          },
+          //@ts-ignore,
+          "& .MuiSelect-select": {
+            paddingTop: "12px",
+            paddingBottom: "12px",
+          },
+          "& .MuiSelect-icon": {
+            top: "unset",
+          },
+        },
+      },
+    },
     MuiCssBaseline: {
       styleOverrides: {
         body: {

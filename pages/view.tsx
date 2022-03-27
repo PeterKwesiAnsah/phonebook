@@ -4,7 +4,7 @@ import loadable from "@loadable/component";
 import { Stack, CircularProgress } from "@mui/material";
 const Subscribers = loadable(
   async () => {
-    const { Subscribers } = await import("../features/view/routes");
+    const { Subscribers } = await import("../features/subscribers/routes");
     return Subscribers;
   },
   {

@@ -1,8 +1,11 @@
-import { Box, Stack, Button } from "@mui/material";
+import { Box, Stack, IconButton } from "@mui/material";
 import { alpha } from "@mui/material/styles";
 import { ReactChild } from "react";
 import { Search } from ".";
 import { borderStyles } from "../../overview/components";
+import AddIcon from "@mui/icons-material/Add";
+import { create } from "../subscriberSlice";
+import { useDispatch } from "react-redux";
 
 export const ListLayout = ({
   children,
@@ -11,8 +14,19 @@ export const ListLayout = ({
   children: ReactChild;
   Component: (props: any) => JSX.Element;
 }) => {
+  const dispatch = useDispatch();
   return (
     <Box>
+      <Stack alignItems={"end"}>
+        <IconButton
+          onClick={() => {
+            dispatch(create());
+          }}
+        >
+          <AddIcon></AddIcon>
+        </IconButton>
+      </Stack>
+
       <Box
         sx={{
           ...borderStyles,
