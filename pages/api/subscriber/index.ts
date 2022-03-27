@@ -79,7 +79,7 @@ export default async function handler(
         }),
       ]);
       const url = new URL("http://" + req.headers!.host + req.url!);
-      console.log('url',url);
+      // console.log('url',url);
       const isNext = Number(page || "1") * take < count;
       const isPrev = queryPage * take > 0;
       return res.status(200).json({

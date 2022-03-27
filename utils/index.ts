@@ -14,15 +14,11 @@ export const genPrevNext = (
     if (type === "prev") {
       searchParam.set("page", String(queryPage));
     }
-    // console.log();
     return url.origin + url.pathname + url.search;
-    // console.log(searchParam.toString());
   } else {
     return null;
   }
-  // if (queryPage * take > 0) {
-  //   prevUrl.searchParams.set("page", String(queryPage - 1));
-  // }
+ 
 };
 
 export const inputStyles = () => ({
