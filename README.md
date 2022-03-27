@@ -64,7 +64,7 @@ The starter project includes the following dependencies installed:
   - `page/index.tsx`: page that will display an overview of subscribers
   - `public`: folder for serving static assets such as images, fonts, etc.
   - `store`: folder contains the redux store
-  - `types`: folter contains type utilities for the app
+  - `types`: folder contains type utilities for the app
 
 ## Setting up the datebase URL
 

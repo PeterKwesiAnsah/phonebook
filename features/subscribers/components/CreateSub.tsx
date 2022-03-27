@@ -82,18 +82,36 @@ export const CreateSub = () => {
           xs={12}
           sx={{
             "& .PhoneInput": {
-              maxWidth:
-                //@ts-ignore
-                theme.components?.MuiFilledInput?.styleOverrides?.root.maxWidth,
+              //@ts-ignore
+              ...theme.components?.MuiFilledInput?.styleOverrides?.root,
+              //@ts-ignore
               height: inputStyles().height,
+              ...inputStyles(),
+              padding: "12px !important",
+              "&:focus-within":
+                //@ts-ignore
+                theme.components?.MuiFilledInput?.styleOverrides?.root[
+                  "&.Mui-focused"
+                ],
 
               "& .PhoneInputInput": {
-                ...inputStyles(),
-                //@ts-ignore
-                ...theme.components?.MuiFilledInput?.styleOverrides?.root,
-                padding: "12px !important",
+                height: "100%",
+                maxHeight: inputStyles().height,
+                border: "transparent",
+
+                color:
+                  //@ts-ignore
+                  theme.components?.MuiFilledInput?.styleOverrides?.root[
+                    "color"
+                  ],
+
+                fontFamily:
+                  //@ts-ignore
+                  theme.components?.MuiFilledInput?.styleOverrides?.root[
+                    "fontFamily"
+                  ],
                 "&:focus-visible": {
-                  outlineColor: theme.palette.primary.main,
+                  outlineColor: "transparent",
                 },
               },
             },
@@ -144,7 +162,7 @@ export const CreateSub = () => {
           opacity: createSubMutation.isLoading ? 0.7 : 1,
         }}
       >
-        {createSubMutation.isLoading ? "Creating" : "Create"}
+        {createSubMutation.isLoading ? "Hang on" : sub.id ? "Update" : "Create"}
       </Button>
     </Box>
   );
