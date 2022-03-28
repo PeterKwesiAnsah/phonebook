@@ -168,6 +168,13 @@ export const CreateSub = () => {
             ? "Update"
             : "Create"}
         </Button>
+        {createSubMutation.isError && (
+          <Typography variant="subtitle2" color="error">
+            {!sub?.id
+              ? "Phone Already Exists or An Error occurred"
+              : "An Error occured"}
+          </Typography>
+        )}
       </Box>
     </Box>
   );
