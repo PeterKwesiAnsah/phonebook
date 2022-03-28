@@ -45,7 +45,8 @@ The starter project includes the following dependencies installed:
 ┃ ┃ ┗ [id].ts
 ┃ ┣ _app.tsx
 ┃ ┣ index.tsx
-┃ ┗ view.tsx
+┃ ┗ view/
+┃ ┗ overview/
 ┣ public/
 ┣ styles/
 ┣ .eslintrc.json
@@ -62,6 +63,8 @@ The starter project includes the following dependencies installed:
   - `index.tsx` renders the page located at `http:///localhost:3000`, which contains the overview of the application
   - `_app`: global `App` component that wraps around your entire app. This file is used to add global styles , redux etc
   - `page/index.tsx`: page that will display an overview of subscribers
+  - `overview`: folder represents the overview data, behaving as a standalone app
+  - `view`: folder represents the table data, behaving as a standalone app
   - `public`: folder for serving static assets such as images, fonts, etc.
   - `store`: folder contains the redux store
   - `types`: folder contains type utilities for the app

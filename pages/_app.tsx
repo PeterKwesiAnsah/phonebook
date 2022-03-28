@@ -7,18 +7,22 @@ import { ReactQueryDevtools } from "react-query/devtools";
 import { Container } from "../Layout";
 import { Provider } from "react-redux";
 import { store } from "../store";
+import { ErrorBoundary } from "react-error-boundary";
 import { Toaster } from "react-hot-toast";
+import { ErrorFallback } from "../components/ErrorBoundaryFB";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={client}>
       <Theme>
         <Container>
-          <Provider store={store}>
-            <Component {...pageProps} />
+          <ErrorBoundary fallback={<ErrorFallback></ErrorFallback>}>
+            <Provider store={store}>
+              <Component {...pageProps} />
 
-            <Toaster></Toaster>
-          </Provider>
+              <Toaster></Toaster>
+            </Provider>
+          </ErrorBoundary>
         </Container>
       </Theme>
       <ReactQueryDevtools></ReactQueryDevtools>
