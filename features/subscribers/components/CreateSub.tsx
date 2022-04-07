@@ -24,6 +24,7 @@ export const CreateSub = () => {
   const { color, fontWeight, fontFamily, maxWidth } =
     theme.components?.MuiFilledInput?.styleOverrides?.root;
   const createSubMutation = useCreateSub();
+  //@ts-ignore
   const sub = useGetSub();
   const [value, setValue, isValidPhone] = usePhone(sub.msisdn);
   const dispatch = useDispatch();
