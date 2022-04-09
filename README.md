@@ -12,7 +12,7 @@ Prisma is a next-generation ORM for Node.js and TypeScript. It makes working wit
 ## Getting Started
 
 ```bash
-git clone -b starter https://github.com/PeterKwesiAnsah/phonebook.git
+git clone https://github.com/PeterKwesiAnsah/phonebook.git
 cd phonebook
 yarn install
 yarn run dev
